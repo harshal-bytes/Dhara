@@ -1,0 +1,218 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>DHARA-AI | Farmer details</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Mukta:wght@400;600;800&display=swap">
+<style>
+:root{--bg:#f1f5ee;--card:#fff;--ink:#14301f;--muted:#5b6b60;--line:#cfd9cb;--green:#2e7d4f;--green-d:#1d5c37;--wheat:#e6b53c;--err:#b3261e;--ok-bg:#e4f1e6;
+box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#0f1a13;--card:#17251c;--ink:#e8f0e6;--muted:#a3b3a7;--line:#2c4034;--green:#5cb97f;--green-d:#8fd6a8;--err:#ff8a80;--ok-bg:#1d3326}}
+:root[data-theme="dark"]{--bg:#0f1a13;--card:#17251c;--ink:#e8f0e6;--muted:#a3b3a7;--line:#2c4034;--green:#5cb97f;--green-d:#8fd6a8;--err:#ff8a80;--ok-bg:#1d3326}
+*,*::before,*::after{box-sizing:border-box}
+html{scroll-padding-top:env(safe-area-inset-top,0px)}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:"Mukta",system-ui,-apple-system,"Segoe UI",sans-serif;font-size:18px;line-height:1.5}
+.wrap{max-width:640px;margin:0 auto;padding:20px 16px 48px}
+header{padding:20px 0 16px}
+.brand{font-weight:800;font-size:34px;letter-spacing:.02em;line-height:1}
+.brand span{color:var(--green)}
+.tag{margin:8px 0 0;color:var(--muted);font-size:17px;max-width:46ch}
+.stripe{height:6px;border-radius:3px;margin-top:16px;background:repeating-linear-gradient(90deg,var(--green) 0 22px,var(--wheat) 22px 30px)}
+fieldset{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:18px 18px 8px;margin:18px 0}
+legend{font-weight:800;font-size:20px;padding:0 8px;margin-left:-8px}
+.field{margin-bottom:16px}
+label{display:block;font-weight:600;margin-bottom:4px}
+.hint{display:block;color:var(--muted);font-size:15px;font-weight:400}
+input,select{width:100%;min-height:52px;padding:10px 14px;font:inherit;color:var(--ink);background:var(--bg);border:2px solid var(--line);border-radius:10px}
+input:focus-visible,select:focus-visible,button:focus-visible,a:focus-visible{outline:3px solid var(--wheat);outline-offset:2px}
+input[aria-invalid="true"],select[aria-invalid="true"]{border-color:var(--err)}
+.err{display:none;color:var(--err);font-size:15px;margin-top:4px;font-weight:600}
+.field.bad .err{display:block}
+.row{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.mobile{display:flex;gap:8px}.mobile .cc{flex:0 0 64px;display:flex;align-items:center;justify-content:center;background:var(--bg);border:2px solid var(--line);border-radius:10px;font-weight:600}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;min-height:52px;padding:10px 20px;font:inherit;font-weight:800;border-radius:10px;border:2px solid var(--green);cursor:pointer;text-decoration:none;transition:background .15s}
+.btn.main{background:var(--green);color:#fff}.btn.main:hover{background:var(--green-d)}
+.btn.alt{background:transparent;color:var(--green-d)}.btn.alt:hover{background:var(--ok-bg)}
+.actions{display:flex;flex-wrap:wrap;gap:10px;margin-bottom:14px}
+.status{min-height:24px;font-size:16px;color:var(--muted);margin:-4px 0 14px}
+.status.good{color:var(--green-d);font-weight:600}
+.submit{width:100%;font-size:20px;min-height:60px;background:var(--green);color:#fff;border-radius:12px;border:0}
+.submit:hover{background:var(--green-d)}
+.done{display:none;background:var(--ok-bg);border:2px solid var(--green);border-radius:14px;padding:20px;margin-top:18px}
+.done h2{margin:0 0 8px;font-size:24px}
+.done dl{margin:12px 0 16px;display:grid;grid-template-columns:auto 1fr;gap:6px 14px}
+.done dt{color:var(--muted)}.done dd{margin:0;font-weight:600;overflow-wrap:anywhere}
+@media (max-width:480px){.row{grid-template-columns:1fr;gap:0}body{font-size:17px}.brand{font-size:30px}}
+@media (prefers-reduced-motion:reduce){*{transition:none!important}}
+</style>
+</head>
+<body>
+<div class="wrap">
+<header>
+  <div class="brand">DHARA<span>-AI</span></div>
+  <p class="tag">Tell us about you and your farm. It takes about two minutes.</p>
+  <div class="stripe" aria-hidden="true"></div>
+</header>
+
+<form id="f" novalidate>
+  <fieldset>
+    <legend>About you</legend>
+    <div class="field">
+      <label for="name">Full name</label>
+      <input id="name" name="name" autocomplete="name" placeholder="e.g. Ramesh Patil" required>
+      <div class="err">Enter your name.</div>
+    </div>
+    <div class="field">
+      <label for="mobile">Mobile number<span class="hint">10 digits, we will use it to reach you</span></label>
+      <div class="mobile"><div class="cc">+91</div>
+      <input id="mobile" name="mobile" type="tel" inputmode="numeric" autocomplete="tel-national" maxlength="10" placeholder="98765 43210" required></div>
+      <div class="err">Enter a 10-digit mobile number starting with 6, 7, 8 or 9.</div>
+    </div>
+  </fieldset>
+
+  <fieldset>
+    <legend>Where is your farm?</legend>
+    <div class="actions">
+      <button type="button" class="btn main" id="gps">Use my current location</button>
+      <a class="btn alt" id="gmap" href="https://www.google.com/maps" target="_blank" rel="noopener">Open Google Maps</a>
+    </div>
+    <div class="status" id="gpsStatus" role="status" aria-live="polite">Stand at your farm and tap the green button for the exact spot.</div>
+    <div class="row">
+      <div class="field">
+        <label for="lat">Latitude</label>
+        <input id="lat" name="lat" inputmode="decimal" placeholder="18.5204" required>
+      </div>
+      <div class="field">
+        <label for="lng">Longitude</label>
+        <input id="lng" name="lng" inputmode="decimal" placeholder="73.8567" required>
+      </div>
+    </div>
+    <div class="field" id="locField" style="margin-top:-6px">
+      <span class="hint">Not at the farm? Open Google Maps, press and hold on your farm, then copy the two numbers shown and paste them above.</span>
+      <div class="err">Choose your farm location with the green button, or enter latitude and longitude.</div>
+    </div>
+    <div class="field">
+      <label for="village">Village or nearest town <span class="hint">Optional</span></label>
+      <input id="village" name="village" autocomplete="address-level2" placeholder="e.g. Baramati">
+    </div>
+  </fieldset>
+
+  <fieldset>
+    <legend>Your crop</legend>
+    <div class="field">
+      <label for="crop">Crop name</label>
+      <input id="crop" name="crop" list="crops" placeholder="e.g. Cotton" required>
+      <datalist id="crops"><option>Wheat</option><option>Rice</option><option>Cotton</option><option>Sugarcane</option><option>Soybean</option><option>Maize</option><option>Tur (Pigeon pea)</option><option>Onion</option><option>Tomato</option><option>Grapes</option></datalist>
+      <div class="err">Enter the crop you are growing.</div>
+    </div>
+    <div class="field">
+      <label for="seed">Seed company<span class="hint">Pick from the list or type your own</span></label>
+      <input id="seed" name="seed" list="seeds" placeholder="e.g. Mahyco" required>
+      <datalist id="seeds"><option>Mahyco</option><option>Syngenta</option><option>Bayer</option><option>Nuziveedu Seeds</option><option>Rasi Seeds</option><option>Kaveri Seed</option><option>Pioneer</option><option>Local or saved seed</option></datalist>
+      <div class="err">Enter the seed company name.</div>
+    </div>
+    <div class="row">
+      <div class="field">
+        <label for="size">Farm size for this crop</label>
+        <input id="size" name="size" inputmode="decimal" placeholder="e.g. 2.5" required>
+        <div class="err">Enter a size greater than 0.</div>
+      </div>
+      <div class="field">
+        <label for="unit">Unit</label>
+        <select id="unit" name="unit"><option>Acre</option><option>Hectare</option><option>Guntha</option><option>Bigha</option></select>
+      </div>
+    </div>
+  </fieldset>
+
+  <button class="btn submit" type="submit">Save my details</button>
+</form>
+
+<section class="done" id="done" tabindex="-1" aria-live="polite">
+  <h2>Thank you, <span id="dName"></span></h2>
+  <p style="margin:0">Your details are saved on this page.</p>
+  <dl id="sum"></dl>
+  <button class="btn alt" type="button" id="edit">Edit details</button>
+</section>
+</div>
+
+<script>
+(function(){
+  var $=function(id){return document.getElementById(id)};
+  var f=$('f'),done=$('done'),st=$('gpsStatus');
+
+  function setBad(el,bad){
+    var field=el.closest('.field'); if(field) field.classList.toggle('bad',bad);
+    el.setAttribute('aria-invalid',bad?'true':'false');
+  }
+  function num(v){return v!=='' && !isNaN(parseFloat(v)) && isFinite(v)}
+  function validLoc(){
+    var la=parseFloat($('lat').value),ln=parseFloat($('lng').value);
+    return num($('lat').value)&&num($('lng').value)&&la>=-90&&la<=90&&ln>=-180&&ln<=180;
+  }
+  function updateMapLink(){
+    if(validLoc()){
+      $('gmap').href='https://www.google.com/maps?q='+encodeURIComponent($('lat').value.trim()+','+$('lng').value.trim());
+      $('gmap').textContent='Check on Google Maps';
+    } else {
+      $('gmap').href='https://www.google.com/maps';
+      $('gmap').textContent='Open Google Maps';
+    }
+  }
+  ['lat','lng'].forEach(function(id){$(id).addEventListener('input',function(){
+    $('locField').classList.remove('bad');setBad($('lat'),false);setBad($('lng'),false);updateMapLink();
+  })});
+
+  $('mobile').addEventListener('input',function(){this.value=this.value.replace(/\D/g,'').slice(0,10)});
+
+  $('gps').addEventListener('click',function(){
+    if(!navigator.geolocation){st.className='status';st.textContent='Location is not available on this phone. Enter latitude and longitude below.';return}
+    st.className='status';st.textContent='Finding your location…';
+    navigator.geolocation.getCurrentPosition(function(p){
+      $('lat').value=p.coords.latitude.toFixed(6);
+      $('lng').value=p.coords.longitude.toFixed(6);
+      st.className='status good';
+      st.textContent='Location saved (accurate to about '+Math.round(p.coords.accuracy)+' m). Tap “Check on Google Maps” to confirm.';
+      $('locField').classList.remove('bad');updateMapLink();
+    },function(){
+      st.className='status';
+      st.textContent='We could not get your location. Allow location access, or enter latitude and longitude below.';
+    },{enableHighAccuracy:true,timeout:15000});
+  });
+
+  f.addEventListener('submit',function(e){
+    e.preventDefault();
+    var ok=true,first=null;
+    function check(el,good){setBad(el,!good);if(!good){ok=false;if(!first)first=el}}
+    check($('name'),$('name').value.trim().length>1);
+    check($('mobile'),/^[6-9]\d{9}$/.test($('mobile').value));
+    var loc=validLoc();
+    setBad($('lat'),!loc);setBad($('lng'),!loc);
+    $('locField').classList.toggle('bad',!loc);
+    if(!loc){ok=false;if(!first)first=$('lat')}
+    check($('crop'),$('crop').value.trim().length>1);
+    check($('seed'),$('seed').value.trim().length>1);
+    check($('size'),num($('size').value)&&parseFloat($('size').value)>0);
+    if(!ok){first.focus();return}
+
+    var d={
+      name:$('name').value.trim(),
+      mobile:'+91 '+$('mobile').value,
+      location:$('lat').value.trim()+', '+$('lng').value.trim()+($('village').value.trim()?' ('+$('village').value.trim()+')':''),
+      crop:$('crop').value.trim(),
+      seed:$('seed').value.trim(),
+      size:$('size').value.trim()+' '+$('unit').value.toLowerCase()
+    };
+    /* TODO: send d to your backend here, e.g. fetch('/api/farmers',{method:'POST',body:JSON.stringify(d)}) */
+    $('dName').textContent=d.name.split(' ')[0];
+    var rows=[['Mobile',d.mobile],['Farm location',d.location],['Crop',d.crop],['Seed company',d.seed],['Farm size',d.size]];
+    var dl=$('sum');dl.innerHTML='';
+    rows.forEach(function(r){var t=document.createElement('dt'),v=document.createElement('dd');t.textContent=r[0];v.textContent=r[1];dl.appendChild(t);dl.appendChild(v)});
+    f.style.display='none';done.style.display='block';done.focus();window.scrollTo(0,0);
+  });
+
+  $('edit').addEventListener('click',function(){done.style.display='none';f.style.display='block';$('name').focus()});
+})();
+</script>
+</body>
+</html>
